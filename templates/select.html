@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Select a Movie{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="heading">Select a Movie</h1>
+    <p class="description">Please choose the movie you want to add from the list below.</p>
+
+    <ul class="movie-list">
+        {% for movie in movies %}
+        <li class="movie-item">
+            <div class="movie-info">
+                <h3>{{ movie.title }} ({{ movie.year }})</h3>
+                <p>{{ movie.description }}</p>
+                <img src="{{ movie.img_url }}" alt="{{ movie.title }}" class="movie-poster">
+            </div>
+            <form action="{{ url_for('select_movie') }}" method="POST">
+                <input type="hidden" name="title" value="{{ movie.title }}">
+                <input type="hidden" name="year" value="{{ movie.year }}">
+                <input type="hidden" name="description" value="{{ movie.description }}">
+                <input type="hidden" name="rating" value="{{ movie.rating }}">
+                <input type="hidden" name="img_url" value="{{ movie.img_url }}">
+                <button type="submit" class="button">Select</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
